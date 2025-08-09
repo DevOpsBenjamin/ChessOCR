@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Implement authentication in `backend_site`.
+- [x] Implement authentication in `backend_site`.
 - [ ] Add OCR processing pipeline in `backend_ia`.
 - [ ] Define API between `backend_site` and `backend_ia` for submitting sheet
       images, game state, and legal moves and returning candidate moves with
