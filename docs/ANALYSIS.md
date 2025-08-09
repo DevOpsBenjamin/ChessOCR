@@ -19,6 +19,14 @@ The system is split into three services:
 
 All services will be containerized and deployed on Kubernetes. Separate Docker images (`frontend`, `backend_site`, `backend_ia`) allow independent scaling.
 
+`backend_site` reaches `backend_ia` through a cluster-internal Kubernetes Service so
+requests are automatically load balanced across multiple IA pods. Each request
+includes the scoresheet image, current game state, and legal moves. The IA
+service replies with candidate moves and confidence percentages. The site
+service validates the proposals, can perform additional iterations when moves
+are ambiguous, and falls back to human review if no option meets the required
+accuracy.
+
 ## Open Questions
 
 - Which OCR engine to use (e.g., Tesseract, custom model).
