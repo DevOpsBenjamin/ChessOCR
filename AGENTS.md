@@ -2,9 +2,9 @@
 
 This repository uses multiple components:
 
-- `frontend`: Vue 3 app with Node 18.
-- `backend_site`: Python 3.11 FastAPI app exposing REST API and auth.
-- `backend_ia`: Python service for OCR and chess logic.
+- `frontend`: Vue 3 app with Node 20.
+- `backend_site`: Python 3.12 FastAPI app exposing REST API and auth.
+- `backend_ia`: Python 3.12 service for OCR and chess logic.
 
 ## Conventions
 
