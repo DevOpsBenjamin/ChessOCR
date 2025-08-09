@@ -1,0 +1,16 @@
+{
+  "name": "chessocr-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vite",
+    "build": "vite build",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "vite": "^4.5.0"
+  }
+}
