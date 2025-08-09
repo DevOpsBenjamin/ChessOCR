@@ -19,7 +19,18 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
+    club_id = Column(Integer, ForeignKey("clubs.id"), nullable=True)
+    club = relationship("Club", back_populates="members")
     games = relationship("ChessGame", back_populates="owner")
+
+
+class Club(Base):
+    __tablename__ = "clubs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, nullable=False)
+    referral_code = Column(String, unique=True, index=True, nullable=False)
+    members = relationship("User", back_populates="club")
 
 
 class ChessGame(Base):

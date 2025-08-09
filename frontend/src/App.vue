@@ -1,13 +1,8 @@
 <template>
-  <h1>ChessOCR</h1>
+  <Header />
+  <router-view />
 </template>
 
-<script>
-export default {
-  name: 'App'
-};
+<script setup>
+import Header from './components/Header.vue';
 </script>
-
-<style>
-h1 { text-align: center; }
-</style>
