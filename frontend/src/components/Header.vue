@@ -14,9 +14,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { store } from '../store';
+import { useUserStore } from '../store';
 
 const router = useRouter();
+const store = useUserStore();
 const open = ref(false);
 function toggle() {
   open.value = !open.value;

@@ -1,9 +1,10 @@
 <template>
   <div class="max-w-sm mx-auto mt-10">
     <form @submit.prevent="submit" class="space-y-2">
-      <input v-model="username" class="border p-2 w-full" placeholder="Username" />
-      <input v-model="password" type="password" class="border p-2 w-full" placeholder="Password" />
-      <button type="submit" class="bg-green-500 text-white px-4 py-2">Sign Up</button>
+      <input v-model="username" required class="border p-2 w-full" placeholder="Username" />
+      <input v-model="email" type="email" required class="border p-2 w-full" placeholder="Email" />
+      <input v-model="password" type="password" required class="border p-2 w-full" placeholder="Password" />
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 w-full">Sign Up</button>
     </form>
   </div>
 </template>
@@ -11,12 +12,14 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { store } from '../store';
+import { useUserStore } from '../store';
 
 const username = ref('');
+const email = ref('');
 const password = ref('');
 const router = useRouter();
 const route = useRoute();
+const store = useUserStore();
 const refCode = route.query.ref || '';
 
 async function submit() {
@@ -25,6 +28,7 @@ async function submit() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       username: username.value,
+      email: email.value,
       password: password.value,
       referral_code: refCode || null
     })
@@ -32,11 +36,11 @@ async function submit() {
   if (res.ok) {
     const loginRes = await fetch('/login', {
       headers: {
-        'Authorization': 'Basic ' + btoa(username.value + ':' + password.value)
+        'Authorization': 'Basic ' + btoa(email.value + ':' + password.value)
       }
     });
     if (loginRes.ok) {
-      store.user = username.value;
+      store.user = email.value;
       router.push('/');
     }
   } else {

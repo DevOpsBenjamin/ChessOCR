@@ -1,5 +1,7 @@
-import { reactive } from 'vue';
+import { defineStore } from 'pinia';
 
-export const store = reactive({
-  user: null
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    user: null
+  })
 });
