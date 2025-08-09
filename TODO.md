@@ -2,7 +2,7 @@
 
 - [x] Implement authentication in `backend_site`.
 - [x] Add OCR processing pipeline in `backend_ia`.
-- [ ] Define API between `backend_site` and `backend_ia` for submitting sheet
+- [x] Define API between `backend_site` and `backend_ia` for submitting sheet
       images, game state, and legal moves and returning candidate moves with
       confidence scores.
 - [ ] Build Vue components for uploading scans and reviewing moves.
