@@ -5,7 +5,7 @@
 - [x] Define API between `backend_site` and `backend_ia` for submitting sheet
       images, game state, and legal moves and returning candidate moves with
       confidence scores.
-- [ ] Build Vue components for uploading scans and reviewing moves.
+- [x] Build Vue components for uploading scans and reviewing moves.
 - [ ] Add database schema and migrations.
 - [ ] Create Kubernetes manifests for deployment.
 - [ ] Configure Kubernetes Services so `backend_site` can load balance across
