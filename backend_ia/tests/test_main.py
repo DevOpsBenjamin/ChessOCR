@@ -7,4 +7,4 @@ from service.main import process_move
 
 
 def test_process_move():
-    assert process_move('dummy.png') == 'e2e4'
+    assert process_move("dummy_path") == "d4"
