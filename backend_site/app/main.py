@@ -3,6 +3,8 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from pydantic import BaseModel
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
+import httpx
+import os
 
 from .db import Club, User, get_db, init_db
 
@@ -39,6 +41,33 @@ class RegisterResponse(BaseModel):
     club: str | None = None
 
 
+class MoveCandidate(BaseModel):
+    move: str
+    confidence: float
+
+
+class AnalysisRequest(BaseModel):
+    image: str
+    state: str
+    legal_moves: list[str]
+
+
+class AnalysisResponse(BaseModel):
+    candidates: list[MoveCandidate]
+
+
+# Allow overriding the IA service URL via environment variable for different
+# deployment environments. Defaults to the Docker compose service name.
+IA_SERVICE_URL = os.getenv("IA_SERVICE_URL", "http://backend-ia:8000")
+
+
+def call_backend_ia(data: AnalysisRequest) -> AnalysisResponse:
+    url = IA_SERVICE_URL.rstrip("/") + "/analyze"
+    response = httpx.post(url, json=data.dict())
+    response.raise_for_status()
+    return AnalysisResponse(**response.json())
+
+
 @app.post("/register", response_model=RegisterResponse)
 def register_user(data: RegisterRequest, db: Session = Depends(get_db)):
     if db.query(User).filter_by(username=data.username).first():
@@ -70,3 +99,8 @@ async def health() -> dict[str, str]:
 async def secure(username: str = Depends(get_current_username)) -> dict[str, str]:
     """An endpoint protected by basic authentication."""
     return {"hello": username}
+
+
+@app.post("/analyze", response_model=AnalysisResponse)
+def analyze(data: AnalysisRequest) -> AnalysisResponse:
+    return call_backend_ia(data)
